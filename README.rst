@@ -92,16 +92,15 @@ Concerns
 Deposits: net or gross?
 -----------------------
 
-It isn't clear from the instructions if I can deposit $800 but withdraw
+It isn't clear from the instructions if I can deposit $800 and withdraw
 $799 each month and still avoid penalties.
-
-Some example data with expected results would be useful here.
 
 When are penalties applied?
 ----------------------
 
-It isn't clear when to apply penalties
-
+It isn't clear when to apply penalties and penalties might set up more
+penalties in the next month.  Since I have data through the end of
+March, and no sign of penalties, I imagine they don't care
 
 Users can't change programs
 ---------------------------
@@ -148,17 +147,15 @@ If I had more time...
 Add test data with expected results
 -----------------------------------
 
-Non-technical people sometimes provide vague
-descriptions or ambiguous instructions.  A good way to offset that
-problem is to have them also include some contrived sample data and then
-also some expected results to test against.
+It helps when a description also includes some contrived sample data and
+some expected results to test against.
 
-I can run input data through the system and compare the calculated
-results vs the expected results.
+During development, I can run input data through the system and compare
+the calculated results vs the expected results.
 
-We'll either discover a bug in the software or vagueness in the
+I'll either discover a bug in the software or vagueness in the
 description of how the software ought to work (for example, net or gross
-deposits).
+deposits, or any vs all.
 
 Store the rules for programs in the database
 --------------------------------------------
