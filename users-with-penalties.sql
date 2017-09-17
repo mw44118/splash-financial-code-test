@@ -84,4 +84,4 @@ group by 1, 2
 order by 2, 1
 ;
 
-select * from total_per_user_penalties;
+\copy (select * from total_per_user_penalties) to 'reports/users-with-penalties.csv' with csv header;

@@ -21,7 +21,4 @@ where total_deposits_for_month = max_for_month
 order by dt;
 ;
 
-select *
-from highest_monthly_deposits
-;
-
+\copy (select * from highest_monthly_deposits) to 'reports/highest-monthly-deposits.csv' with csv header;

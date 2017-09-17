@@ -2,6 +2,12 @@
 Notes on code test
 ++++++++++++++++++
 
+Results
+=======
+
+Check the reports folder for three CSV files.  Hopefully, they have the
+correct data.
+
 How I did it
 ============
 
@@ -16,11 +22,20 @@ How I did it
         $ psql splashfinancial -f make-splash-tables.sql
 
 4.  Created a view named running_balances that figures out each user's
-    balance on each day.
+    balance on each day::
 
-5.  Manually spot-checked a few results.
+        $ psql splashfinancial -f make-running-balances.sql
 
-6.  Wrote queries for each of the questions.
+5.  Manually spot-checked a few results::
+
+        $ psql splashfinancial -c 'select * from running_balances where user_id in (6);'
+
+6.  Wrote queries for each of the questions::
+
+        $ psql splashfinancial -f users-with-penalties.sql
+        $ psql splashfinancial -f highest-monthly-deposits.sql
+        $ psql splashfinancial -f most-monthly-transactions.sql
+
 
 Why did I do it in SQL?
 =======================
@@ -37,21 +52,26 @@ language.  There are a few reasons why that's a bad idea:
 
 2.  Really smart programmers have been optimizing the window function
     internal code for **years** now.  A home-rolled solution will not
-    likely run as fast and may even fail when given unexpected inputs
-    (like leap days, for example).
+    likely run as fast.
 
-3.  Home-rolled code is not as flexible.  Right now, the program rules
-    look at the balance on the last day of the month.  But if we want to
-    look at a 30-day or 90-day moving average, it would **trivial** to
-    calculate those statistics with a windowing function, but not so
-    easy with a home-rolled approach.
+    For 90 days * 100 accounts, you have at worst 10k combinations to
+    worry about, so a slow implementation is fine.
 
-4.  Now, there's no internal software library to support.  We just need
-    to tell new developers to read any tutorial on window functions and
-    they can understand how to maintain and update this code.
+    When you consider 3 years of data and a thousand accounts, you have
+    a million combinations to consider.
 
-    In fact, a savvy-enough business analyst could be given read-only
-    access to the database and run these queries themselves.
+3.  If we want to look at a 30-day or 90-day moving average, or many
+    other windows of data, it would **trivial** to calculate those
+    statistics with a windowing function, but not so easy with a
+    home-rolled approach.
+
+4.  Now, there's no internal software library to test and document.  We
+    just need to tell new developers to read any tutorial on window
+    functions and they can understand how to maintain and update this
+    code.
+
+    In fact, a savvy-enough business analyst could run these queries
+    themselves.
 
 
 Ideas for improvement
@@ -60,31 +80,21 @@ Ideas for improvement
 Add test data with expected results
 -----------------------------------
 
-It helps when a description also includes some contrived sample data and
-some expected results to test against.
-
-During development, I can run input data through the system and compare
-the calculated results vs the expected results.
-
-I'll either discover a bug in the software or vagueness in the
-description of how the software ought to work (for example, net or gross
-deposits, or any vs all.
+English is vague!  It helps prevent wasted time when a description also
+includes contrived sample data and expected results to test against.
 
 Store the rules for programs in the database
 --------------------------------------------
 
-Right now, there's no table that describes what program one's
-requirements are.
+Right now, there's no table that describes what requirements for each
+program.
 
-Imagine being able to insert a row for a new program, setting the
+A new program would require new queries to be written.
+
+But imagine being able to insert a row for a new program, setting the
 minimum monthly balance, minimum count of transactions, and minimum
 total monthly deposits, and the system would automatically detect who
 should be penalized.
-
-
-
-
-
 
 
 .. vim: set syntax=rst:

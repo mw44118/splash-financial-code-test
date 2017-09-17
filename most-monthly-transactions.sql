@@ -21,7 +21,4 @@ where total_transaction_count_for_month = max_for_month
 order by dt;
 ;
 
-select *
-from most_monthly_transactions
-;
-
+\copy (select * from most_monthly_transactions) to 'reports/most-monthly-transactions.csv' with csv header;
