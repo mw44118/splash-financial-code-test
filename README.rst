@@ -7,53 +7,27 @@ How I did it
 
 1.  Downloaded the CSV files into a folder named "datafiles".
 
-2.  Made a new empty postgresql database.
+2.  Made a new empty postgresql database::
 
         $ createdb splashfinancial
 
-3.  Created two tables and loaded in spreadsheet data.
+3.  Created two tables and loaded in spreadsheet data::
 
-4.  Created a view named running_balances that calculates the current
-    balance for each user every day, monthly transactions count, and end
-    of month balances.
+        $ psql splashfinancial -f make-splash-tables.sql
 
-6.  Wrote results for a few users to a spreadsheet so I could spot-check
-    the results::
+4.  Created a view named running_balances that figures out each user's
+    balance on each day.
 
-        \copy (
-            select * from running_balances
-            where running_balances.user_id in (149, 13, 103, 6)
-        ) to stdout with csv header;
+5.  Manually spot-checked a few results.
 
-Concerns
-========
-
-Deposits: net or gross?
------------------------
-
-It isn't clear from the instructions if I can deposit $800 and withdraw
-$799 each month and still avoid penalties.
-
-When are penalties applied?
-----------------------
-
-It isn't clear when to apply penalties and penalties might set up more
-penalties in the next month.  Since I have data through the end of
-March, and no sign of penalties, I imagine they don't care
-
-Users can't change programs
----------------------------
-
-This data layout (program stored with starting balances) prevents people
-from switching at a point in time.
+6.  Wrote queries for each of the questions.
 
 Why did I do it in SQL?
 =======================
 
-MySQL, Access, and SQLite, for example, do not support SQL window
-functions.  but window functions are part of the ANSI standard SQL
-language and they were designed **exactly for these kinds of problems**
-(running totals, moving averages, trends, ranks, etc).
+Window functions are part of the ANSI standard SQL language and they
+were designed **exactly for these kinds of problems** (running totals,
+moving averages, trends, ranks, etc).
 
 Many of my peers might do all this work in a general purpose programming
 language.  There are a few reasons why that's a bad idea:
@@ -80,7 +54,7 @@ language.  There are a few reasons why that's a bad idea:
     access to the database and run these queries themselves.
 
 
-If I had more time...
+Ideas for improvement
 =====================
 
 Add test data with expected results
@@ -98,6 +72,16 @@ deposits, or any vs all.
 
 Store the rules for programs in the database
 --------------------------------------------
+
+Right now, there's no table that describes what program one's
+requirements are.
+
+Imagine being able to insert a row for a new program, setting the
+minimum monthly balance, minimum count of transactions, and minimum
+total monthly deposits, and the system would automatically detect who
+should be penalized.
+
+
 
 
 
