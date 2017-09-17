@@ -7,76 +7,15 @@ How I did it
 
 1.  Downloaded the CSV files into a folder named "datafiles".
 
-2.  Made a new empty postgresql database::
+2.  Made a new empty postgresql database.
 
         $ createdb splashfinancial
 
-3.  Created two tables and loaded in spreadsheet data::
-
-        drop table if exists starting_balances cascade;
-
-        create table starting_balances
-        (
-            user_id integer not null,
-            initial_amount numeric not null,
-            program text not null
-        );
-
-        \copy starting_balances from 'datafiles/StartingData.csv' with csv header;
-
-        drop table if exists transactions;
-
-        create table transactions
-        (
-            transaction_date date not null,
-            user_id integer not null,
-            amount numeric
-        );
-
-        \copy transactions from 'datafiles/Jan.csv' with csv header;
-        \copy transactions from 'datafiles/Feb.csv' with csv header;
-        \copy transactions from 'datafiles/Mar.csv' with csv header;
+3.  Created two tables and loaded in spreadsheet data.
 
 4.  Created a view named running_balances that calculates the current
-    balance for each user every day::
-
-        create view running_balances as
-
-        -- Create a table with one row per day.
-        with days as (
-            select generate_series(
-                date '2017-01-01',  -- starting value
-                date '2017-04-01',  -- ending value
-                interval '1 day'    -- increment
-            )::date as dt
-        )
-
-        select days.dt, starting_balances.user_id,
-        starting_balances.initial_amount, starting_balances.program,
-        transactions.amount,
-
-        -- Accumulate all the transaction amounts.
-        sum(coalesce(transactions.amount, 0))
-        over (partition by starting_balances.user_id order by days.dt)
-        as total_amount,
-
-        starting_balances.initial_amount +
-        sum(coalesce(transactions.amount, 0))
-        over (partition by starting_balances.user_id order by days.dt)
-        as current_balance
-
-        from days
-
-        cross join starting_balances
-
-        left join transactions
-        on days.dt = transactions.transaction_date
-        and starting_balances.user_id = transactions.user_id
-
-        order by starting_balances.user_id, days.dt
-
-        ;
-
+    balance for each user every day, monthly transactions count, and end
+    of month balances.
 
 6.  Wrote results for a few users to a spreadsheet so I could spot-check
     the results::

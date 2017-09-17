@@ -4,7 +4,7 @@ create table starting_balances
 (
     user_id integer not null,
     initial_amount numeric not null,
-    program text not null
+    program integer not null
 );
 
 \copy starting_balances from 'datafiles/StartingData.csv' with csv header;
