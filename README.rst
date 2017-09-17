@@ -85,7 +85,7 @@ includes contrived sample data and expected results to test against.
 Store the rules for programs in the database
 --------------------------------------------
 
-Right now, there's no table that describes what requirements for each
+Right now, there's no table that describes the requirements for each
 program.
 
 A new program would require new queries to be written.
