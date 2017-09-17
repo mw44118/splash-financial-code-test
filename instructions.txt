@@ -1,0 +1,29 @@
+The first (StartingData.csv) consists of user ids, starting account balances,
+and what program the user is in. There are then 3 files with data about
+deposits and withdraws.
+
+Information about program 1:
+
+   - Can avoid paying a $8 penalty per month if one of the following criteria is met:
+        - deposited at least 300 per month
+        - has at least 5 transactions per month
+        - has at least 1200 in their account by the end of the month
+
+Information about program 2:
+   - Can avoid paying a $4 penalty per month if one of the following criteria is met:
+        - deposited at least 800 per month
+        - has at least 1 transaction per month
+        - has at least 5000 in their account by the end of the month
+
+Please write a script that determines:
+1. which users have accrued penalties and how much each one owes
+2. per month, which user deposited the most and how much it was
+3. per month, which user had the most transactions and how many
+
+Additional information:
+
+Please spend no more than 3 hours on the coding challenge. Some people complete
+the test, other do not. Either is fine, as we are most interested in your
+thought process, the efficiency and simplicity of your solution, and the
+quality and organizational structure of your code. Lastly, there is no need to
+create a front-end interface for your answer.
