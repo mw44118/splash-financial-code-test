@@ -50,18 +50,18 @@ language.  There are a few reasons why that's a bad idea:
 1.  Writing the logic to accumulate sums is tricky.  Meanwhile, there
     are dozens of excellent tutorials out for using window functions.
 
-2.  Really smart programmers have been optimizing the window function
-    internal code for **years** now.  A home-rolled solution will not
-    likely run as fast.
-
-    For 90 days * 100 accounts, you have at worst 10k combinations to
-    worry about, so a slow implementation is fine.
+2.  For 90 days * 100 accounts, you have roughly about 10k combinations
+    to worry about, so a slow home-rolled implementation is fine.
 
     When you consider 3 years of data and a thousand accounts, you have
     a million combinations to consider.
 
+    Really smart programmers have been optimizing the window function
+    internal code for **years** now and it is going to be much faster to
+    use their work.
+
 3.  If we want to look at a 30-day or 90-day moving average, or many
-    other windows of data, it would **trivial** to calculate those
+    other windows of data, it would be **trivial** to calculate those
     statistics with a windowing function, but not so easy with a
     home-rolled approach.
 
@@ -72,7 +72,6 @@ language.  There are a few reasons why that's a bad idea:
 
     In fact, a savvy-enough business analyst could run these queries
     themselves.
-
 
 Ideas for improvement
 =====================
