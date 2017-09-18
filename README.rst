@@ -14,14 +14,15 @@ results are in `reports/users-with-penalties.csv <reports/users-with-penalties.c
 per month, which user deposited the most and how much it was
 ------------------------------------------------------------
 
-Script is `highest-monthly-deposits.sql` and results are in
-`reports/highest-monthly-deposits.csv`.
+Script is `highest-monthly-deposits.sql <highest-monthly-deposits.sql>`_
+and results are in
+`reports/highest-monthly-deposits.csv <reports/highest-monthly-deposits.csv>`_.
 
 per month, which user had the most transactions and how many
 ------------------------------------------------------------
 
-Script is `most-monthly-transactions.sql` and results are in
-`reports/most-monthly-transactions.csv`.
+Script is `most-monthly-transactions.sql <most-monthly-transactions.sql>`_
+and results are in `reports/most-monthly-transactions.csv <reports/most-monthly-transactions.csv>`_.
 
 How I did it
 ============
@@ -34,7 +35,7 @@ How I did it
 
 3.  Created two tables and loaded in spreadsheet data::
 
-        $ psql splashfinancial -f make-splash-tables.sql
+        $ psql splashfinancial -f `make-splash-tables.sql <make-splash-tables.sql>`_
 
 4.  Created a view named running_balances that figures out each user's
     balance on each day::
