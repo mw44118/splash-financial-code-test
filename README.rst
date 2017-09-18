@@ -33,12 +33,12 @@ How I did it
 
         $ createdb splashfinancial
 
-3.  Created two tables and loaded in spreadsheet data::
+3.  Made two tables and loaded CSV data (`make-splash-tables <make-splash-tables.sql>`_)::
 
         $ psql splashfinancial -f make-splash-tables.sql
 
 4.  Created a view named running_balances that figures out each user's
-    balance on each day::
+    balance on each day (`make-running-balances.sql <make-running-balances.sql>`_)::
 
         $ psql splashfinancial -f make-running-balances.sql
 
