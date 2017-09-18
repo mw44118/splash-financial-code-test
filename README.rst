@@ -33,7 +33,7 @@ How I did it
 
         $ createdb splashfinancial
 
-3.  Made two tables and loaded CSV data (`make-splash-tables <make-splash-tables.sql>`_)::
+3.  Made two tables and loaded CSV data (`make-splash-tables.sql <make-splash-tables.sql>`_)::
 
         $ psql splashfinancial -f make-splash-tables.sql
 
