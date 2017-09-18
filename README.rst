@@ -5,20 +5,20 @@ Notes on code test
 Results
 =======
 
-which users have accrued penalties and how much each one owes
+Which users have accrued penalties and how much each one owes
 -------------------------------------------------------------
 
 Script is `users-with-penalties.sql <users-with-penalties.sql>`_ and
 results are in `reports/users-with-penalties.csv <reports/users-with-penalties.csv>`_.
 
-per month, which user deposited the most and how much it was
+Per month, which user deposited the most and how much it was
 ------------------------------------------------------------
 
 Script is `highest-monthly-deposits.sql <highest-monthly-deposits.sql>`_
 and results are in
 `reports/highest-monthly-deposits.csv <reports/highest-monthly-deposits.csv>`_.
 
-per month, which user had the most transactions and how many
+Per month, which user had the most transactions and how many
 ------------------------------------------------------------
 
 Script is `most-monthly-transactions.sql <most-monthly-transactions.sql>`_
@@ -35,7 +35,7 @@ How I did it
 
 3.  Created two tables and loaded in spreadsheet data::
 
-        $ psql splashfinancial -f `make-splash-tables.sql <make-splash-tables.sql>`_
+        $ psql splashfinancial -f make-splash-tables.sql
 
 4.  Created a view named running_balances that figures out each user's
     balance on each day::
@@ -60,7 +60,7 @@ Why did I do it in SQL?
 
 Window functions are part of the ANSI standard SQL language and they
 were designed **exactly for these kinds of problems** (running totals,
-moving averages, trends, find details about data the Nth rank, etc).
+details about Nth rank, etc).
 
 Many of my peers might do all this work in a general purpose programming
 language.  There are a few reasons why that's a bad idea:
@@ -88,7 +88,7 @@ language.  There are a few reasons why that's a bad idea:
     functions and they can understand how to maintain and update this
     code.
 
-    In fact, a savvy-enough business analyst could run these queries
+    In fact, savvy-enough business analysts could write these queries
     themselves.
 
 Ideas for improvement
@@ -97,8 +97,8 @@ Ideas for improvement
 Add test data with expected results
 -----------------------------------
 
-English is vague!  It helps prevent wasted time when a description also
-includes contrived sample data and expected results to test against.
+English is vague!  A description that includes contrived sample
+data and expected results is very useful.
 
 Store the rules for programs in the database
 --------------------------------------------
