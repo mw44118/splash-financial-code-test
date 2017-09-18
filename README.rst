@@ -8,8 +8,8 @@ Results
 which users have accrued penalties and how much each one owes
 -------------------------------------------------------------
 
-Script is `users-with-penalties.sql <users-with-penalties.sql>` and
-results are in `reports/users-with-penalties.csv <reports/users-with-penalties.csv>`.
+Script is `users-with-penalties.sql <users-with-penalties.sql>`_ and
+results are in `reports/users-with-penalties.csv <reports/users-with-penalties.csv>`_.
 
 per month, which user deposited the most and how much it was
 ------------------------------------------------------------
