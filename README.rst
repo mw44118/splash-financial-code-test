@@ -43,7 +43,7 @@ How I did it
         $ psql splashfinancial -f make-running-balances.sql
 
     You can see what this running_balances table looks like by looking
-    at the CSV file `reports/running-balances.csv`.
+    at the CSV file `reports/running-balances.csv <reports/running-balances.csv>`_.
 
 5.  Manually spot-checked a few results::
 
@@ -59,7 +59,7 @@ Why did I do it in SQL?
 =======================
 
 Window functions are part of the ANSI standard SQL language and they
-were designed **exactly for these kinds of problems** (running totals,
+were designed **exactly for these kinds of problems** (cumulative sums,
 details about Nth rank, etc).
 
 Many of my peers might do all this work in a general purpose programming
