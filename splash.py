@@ -381,8 +381,7 @@ class RunningBalanceBuilder(object):
                     user_id=user_id,
                     total_transaction_count_for_month=high_score))
 
-
-        log.info("Wrote py-highest-monthly-deposits.csv")
+        log.info("Wrote py-most-monthly-transactions.csv")
 
 
 if __name__ == "__main__":

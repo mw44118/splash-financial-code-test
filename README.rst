@@ -2,6 +2,30 @@
 Notes on code test
 ++++++++++++++++++
 
+Python
+~~~~~~
+
+The python version is a single script, `splash.py <splash.py>`_, that
+can be run like this::
+
+    $ python splash.py
+    INFO:splash:Finished writing py-running-balances.csv
+    INFO:splash:Finished writing py-users-with-penalties.csv
+    INFO:splash:Wrote py-highest-monthly-deposits.csv
+    INFO:splash:Wrote py-most-monthly-transactions.csv
+    INFO:splash:All done!
+
+You can run the doctests in the code like this::
+
+    $ python -m doctest splash.py
+
+The results are in the reports directory, and all begin with "py-".
+
+
+
+SQL
+~~~
+
 Results
 =======
 
