@@ -167,9 +167,9 @@ class RunningBalanceBuilder(object):
     def dates(self):
 
         for dt in self.daterange_generator(
-            datetime.date(2017, 01, 01),
+            datetime.date(2017, 1, 1),
             datetime.timedelta(days=1),
-            datetime.date(2017, 04, 1)):
+            datetime.date(2017, 4, 1)):
 
             yield dt
 
