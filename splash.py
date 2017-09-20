@@ -3,8 +3,6 @@
 # Run doctests like this::
 #     $ python -m doctest splash.py
 
-# See test_splash.py for more unit tests.
-
 import calendar
 import collections
 import copy
@@ -290,6 +288,102 @@ class RunningBalanceBuilder(object):
             row = self.d[(dt, str(user_id))]
             self.log_row(row)
 
+    def find_highest_monthly_deposits(self):
+
+        for dt in sorted(self.last_days_of_months):
+
+            high_score = 0
+            high_scoring_user_ids = set([])
+
+            for user_id in sorted(self.starting_balances.user_ids, key=int):
+
+                row = self.d[(dt, user_id)]
+
+                if row["total_deposits_for_month"] > high_score:
+                    high_score = row["total_deposits_for_month"]
+                    high_scoring_user_ids = set([row["user_id"]])
+
+                elif row["total_deposits_for_month"] == high_score:
+                    high_scoring_user_ids.add(row["user_id"])
+
+            yield (dt, high_score, high_scoring_user_ids)
+
+    def write_highest_monthly_deposits_csv(self):
+
+        highest_deposits_csv = csv.DictWriter(
+            open(
+                os.path.join(
+                    "reports",
+                    "py-highest-monthly-deposits.csv"),
+                "w"),
+            [
+                "dt",
+                "user_id",
+                "total_deposits_for_month"
+            ])
+
+        highest_deposits_csv.writeheader()
+
+        for dt, high_score, high_scoring_user_ids in self.find_highest_monthly_deposits():
+
+            for user_id in high_scoring_user_ids:
+
+                highest_deposits_csv.writerow(dict(
+                    dt=dt,
+                    user_id=user_id,
+                    total_deposits_for_month=high_score))
+
+
+        log.info("Wrote py-highest-monthly-deposits.csv")
+
+    def find_most_monthly_transactions(self):
+
+        for dt in sorted(self.last_days_of_months):
+
+            high_score = 0
+            high_scoring_user_ids = set([])
+
+            for user_id in sorted(self.starting_balances.user_ids, key=int):
+
+                row = self.d[(dt, user_id)]
+
+                if row["total_transaction_count_for_month"] > high_score:
+                    high_score = row["total_transaction_count_for_month"]
+                    high_scoring_user_ids = set([row["user_id"]])
+
+                elif row["total_transaction_count_for_month"] == high_score:
+                    high_scoring_user_ids.add(row["user_id"])
+
+            yield (dt, high_score, high_scoring_user_ids)
+
+    def write_most_monthly_transactions_csv(self):
+
+        most_monthly_transactions_csv = csv.DictWriter(
+            open(
+                os.path.join(
+                    "reports",
+                    "py-most-monthly-transactions.csv"),
+                "w"),
+            [
+                "dt",
+                "user_id",
+                "total_transaction_count_for_month"
+            ])
+
+        most_monthly_transactions_csv.writeheader()
+
+        for dt, high_score, high_scoring_user_ids in self.find_most_monthly_transactions():
+
+            for user_id in high_scoring_user_ids:
+
+                most_monthly_transactions_csv.writerow(dict(
+                    dt=dt,
+                    user_id=user_id,
+                    total_transaction_count_for_month=high_score))
+
+
+        log.info("Wrote py-highest-monthly-deposits.csv")
+
 
 if __name__ == "__main__":
 
@@ -305,6 +399,7 @@ if __name__ == "__main__":
     rbb.write_rb_csv()
 
     rbb.write_user_penalty_report()
-
+    rbb.write_highest_monthly_deposits_csv()
+    rbb.write_most_monthly_transactions_csv()
 
     log.info("All done!")
